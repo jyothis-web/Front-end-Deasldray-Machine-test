@@ -36,3 +36,17 @@
     transform: rotate(360deg);
   }
 }
+
+.authbtn{
+  background-color: greenyellow;
+  color: black;
+  width: 150px;
+  height: 25px;
+  border: none;
+  outline: none;
+  border-radius: 12px;
+}
+.span{
+  margin-right: 10px;
+  width:120px;
+}
