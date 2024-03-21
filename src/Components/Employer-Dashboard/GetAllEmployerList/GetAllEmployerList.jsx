@@ -15,7 +15,7 @@ import { Button } from "antd";
 import Homepage from "../../../Pages/Homepage";
 import DeleteEmployee from "../DeleteEmployee/Deleteemployee";
 
-const GetEmployerList = () => {
+const GetAllEmployerList = () => {
   const [employerList, setEmployerList] = useState([]);
   const [searchKeyword, setSearchKeyword] = useState("");
   const [loading, setLoading] = useState(true);
@@ -23,18 +23,11 @@ const GetEmployerList = () => {
   //const { id } = useParams();
   useEffect(() => {
     const fetchEmployerList = async () => {
-      try {
-        const token = localStorage.getItem("token");
-        if (!token) {
-          throw new Error("Token is missing");
-        }
-
+      try {      
         const response = await axios.get(
-          `http://localhost:8080/employerDashboard/GetEmployerList`,
+          `http://localhost:8080/employerDashboard/GetAllEmployerList`,
           {
-            headers: {
-              Authorization: `Bearer ${token}`,
-            },
+          
           }
         );
         setEmployerList(response.data.employerList);
@@ -84,9 +77,8 @@ const GetEmployerList = () => {
               <TableCell>Gender</TableCell>
               <TableCell>Course</TableCell>
               <TableCell>Created date</TableCell>
-              <TableCell>Image</TableCell>
-              <TableCell>Update</TableCell>
-              <TableCell>Delete</TableCell>
+              <TableCell>image</TableCell>
+              <TableCell>update</TableCell>
             </TableRow>
           </TableHead>
           <TableBody>
@@ -127,4 +119,4 @@ const GetEmployerList = () => {
   );
 };
 
-export default GetEmployerList;
+export default GetAllEmployerList;

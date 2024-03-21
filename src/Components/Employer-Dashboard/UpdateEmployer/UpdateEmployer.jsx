@@ -18,21 +18,22 @@ const UpdateEmployer = () => {
     image: null,
   });
   const [previewImage, setPreviewImage] = useState(null);
-
+//  console.log(formData);
   useEffect(() => {
     const fetchEmployee = async () => {
       try {
         const response = await axios.get(
-          `http://localhost:8080/employerDashboard/updateEmployee/${id}`
+          `http://localhost:8080/employerDashboard/getSingleEmployee/${id}`
         );
         // setEmployee(response.data);
+        console.log(response.data.existingEmployee);
         setFormData({
-          name: response.data.name || "",
-          email: response.data.email || "",
-          mobileNo: response.data.mobileNo || "",
-          gender: response.data.gender || "",
-          designation: response.data.designation || "",
-          course: response.data.course || [],
+          name: response.data.existingEmployee.name ,
+          email: response.data.existingEmployee.email || "",
+          mobileNo: response.data.existingEmployee.mobileNo || "",
+          gender: response.data.existingEmployee.gender || "",
+          designation: response.data.existingEmployee.designation || "",
+          course: response.data.existingEmployee.course || [],
           image: null,
         });
         if (response.data.image && response.data.image.imagePath) {
@@ -105,7 +106,7 @@ const UpdateEmployer = () => {
     formDataWithId.append("gender", formData.gender);
     formDataWithId.append("designation", formData.designation);
     formDataWithId.append("course", formData.course.join(", "));
-    formDataWithId.append("image", formData.image);
+    formDataWithId.append("file", formData.image);
 
     try {
       const response = await axios.put(

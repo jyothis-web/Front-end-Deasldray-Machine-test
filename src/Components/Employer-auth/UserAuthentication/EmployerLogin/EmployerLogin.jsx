@@ -1,4 +1,4 @@
-import React, {  useState } from 'react'
+import React, { useState } from 'react'
 import './EmployerLogin.css'
 import { Button, Card } from '@mui/material'
 import { Link, useNavigate } from 'react-router-dom'
@@ -11,8 +11,11 @@ const EmployerLogin = () => {
   const navigate = useNavigate();
   const [username, setUsername] = useState("");
   const [password, setPassword] = useState("");
-   //const { auth, setAuth } = useContext(employerAuth);
+  const [showPassword, setShowPassword] = useState(false);
 
+  const togglePasswordVisibility = () => {
+    setShowPassword(!showPassword);
+  };
   const handleSubmit = async (e) => {
     e.preventDefault();
 
@@ -26,10 +29,15 @@ const EmployerLogin = () => {
       const token = response.data.token;
       const name = response.data.user.username;
       console.log("token",name );
+      // setAuth({
+      //   ...auth,
+      //   user:response.data.user ,
+      // });
       localStorage.setItem("token", token);
       localStorage.setItem("name", name );
 
       navigate("/EmployerDashboard");
+      window.location.reload()
     } catch (error) {
       console.log(error.response.data.message);
       toast.error(error.response.data.message);
@@ -47,6 +55,7 @@ const EmployerLogin = () => {
         alignItems: "center",
         justifyContent: "center",
         height: "100vh",
+    
       }}
     >
       {" "}
@@ -61,6 +70,7 @@ const EmployerLogin = () => {
             display: "flex",
             flexDirection: "column",
             gap: "25px",
+            position:"relative"
           }}
         >
           <h2>Login Page</h2>
@@ -73,12 +83,15 @@ const EmployerLogin = () => {
             onChange={(e) => setUsername(e.target.value)}
           />
           <input
-            type="text"
+            type={showPassword ? "text" : "password"}
             placeholder="password"
             required
             value={password}
             onChange={(e) => setPassword(e.target.value)}
           />
+           <div style={{cursor:"pointer",position:"absolute",right:"35px",bottom:"135px"}} onClick={togglePasswordVisibility}>
+        {showPassword ? "Hide" : "Show"}
+      </div>
           <button className="authbtn" type="submit">
             Log in
           </button>

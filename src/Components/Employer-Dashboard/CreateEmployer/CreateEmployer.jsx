@@ -3,6 +3,7 @@ import axios from "axios";
 import { Radio } from "antd";
 import { MenuItem, Select, Checkbox, FormControlLabel } from "@mui/material";
 import toast, { Toaster } from "react-hot-toast";
+import Homepage from "../../../Pages/Homepage";
 
 const CreateEmployer = () => {
   const [image, setImage] = useState(null);
@@ -47,12 +48,11 @@ const CreateEmployer = () => {
   };
 
   const handleCourseChange = (e) => {
-    const { value } = e.target;
-    const isChecked = course.includes(value);
-    if (isChecked) {
-      setCourse(course.filter((c) => c !== value));
+    const { value, checked } = e.target;
+    if (checked) {
+      setCourse([...course, value]); // Add course to the array
     } else {
-      setCourse([...course, value]);
+      setCourse(course.filter((c) => c !== value)); // Remove course from the array
     }
   };
 
@@ -108,6 +108,7 @@ const CreateEmployer = () => {
     <div>
       {" "}
       <Toaster position="top-center" />
+      <Homepage/>
       <h2 style={{ textAlign: "start" }}>Create New Employer</h2>
       <div style={{ marginLeft: "30px", maxWidth: "400px" }}>
         <form onSubmit={handleSubmit}>
